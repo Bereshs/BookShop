@@ -19,7 +19,6 @@ public class AuthorsPageController {
 
     @GetMapping("/authors")
     public String authorsPage(Model model) {
-        Logger.getLogger(AuthorsPageController.class.getName()).info("iam there");
         model.addAttribute("listAuthors", authorService.getAuthorsData());
         return "authors/index";
     }

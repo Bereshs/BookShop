@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 @Service
@@ -19,7 +20,7 @@ public class BookService {
     }
 
     public List<Book> getBooksData() {
-        List<Book> listBooks = jdbcTemplate.query("SELECT * FROM books", (ResultSet rs, int numRows) -> {
+        List<Book> listBooks = jdbcTemplate.query("SELECT BOOKS.id id, BOOKS.TITLE tittle, BOOKS.PRICEOLD priceOld, BOOKS.PRICE price, author.name author FROM BOOKS INNER JOIN AUTHOR ON BOOKS.AUTHOR=AUTHOR.NAME", (ResultSet rs, int numRows) -> {
             Book book = new Book();
             book.setId(rs.getInt("id"));
             book.setAuthor(rs.getString("author"));
@@ -28,6 +29,7 @@ public class BookService {
             book.setTitle(rs.getString("title"));
             return book;
         });
+        Logger.getLogger(BookService.class.getName()).info(" " + listBooks.size());
         return new ArrayList<>(listBooks);
     }
 }

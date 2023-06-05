@@ -23,7 +23,6 @@ public class AuthorService {
     }
 
     public HashMap<String, List<Author>> getAuthorsData() {
-        Logger.getLogger(AuthorService.class.getName()).info(String.valueOf("zzzz"));
         HashMap<String, List<Author>> listAuthors = jdbcTemplate.query("SELECT * FROM AUTHOR", (ResultSet rs) -> {
             HashMap<String, List<Author>> authorMap = new HashMap<>();
             while (rs.next()) {
@@ -38,7 +37,6 @@ public class AuthorService {
             }
             return authorMap;
         });
-        Logger.getLogger(AuthorService.class.getName()).info(String.valueOf(listAuthors));
         return listAuthors;
     }
 
